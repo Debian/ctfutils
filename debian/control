@@ -1,0 +1,21 @@
+Source: ctfutils
+Section: devel
+Priority: extra
+Maintainer: Robert Millan <rmh@debian.org>
+Build-Depends: debhelper (>= 7.0.50~),
+ freebsd-buildutils (>= 9.0-5~),
+ libbsd-dev (>= 0.3.0),
+ freebsd-glue (>= 0.1.8~),
+ libdwarf-freebsd-dev,
+ libelf-freebsd-dev,
+Standards-Version: 3.9.3
+
+Package: ctfutils
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: FreeBSD CTF utilities
+ This package contains utilities to create, merge and dump contents of
+ CTF files.
+ .
+ CTF (Compact C Type) format encapsulates a reduced form of debugging
+ information similar to DWARF.

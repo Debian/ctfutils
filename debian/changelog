@@ -1,0 +1,5 @@
+ctfutils (9.2-1) unstable; urgency=low
+
+  * Initial release.  (Closes: #729149)
+
+ -- Robert Millan <rmh@debian.org>  Sat, 09 Nov 2013 17:07:06 +0100

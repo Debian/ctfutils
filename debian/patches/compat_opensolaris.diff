@@ -1,0 +1,208 @@
+--- a/sys/cddl/compat/opensolaris/sys/param.h
++++ b/sys/cddl/compat/opensolaris/sys/param.h
+@@ -27,11 +27,11 @@
+  *
+  */
+ 
++#include_next <sys/param.h>
++
+ #ifndef _COMPAT_OPENSOLARIS_SYS_PARAM_H_
+ #define _COMPAT_OPENSOLARIS_SYS_PARAM_H_
+ 
+-#include_next <sys/param.h>
+-
+ #define	PAGESIZE	PAGE_SIZE
+ 
+ #ifdef _KERNEL
+--- a/cddl/compat/opensolaris/include/stdio.h
++++ b/cddl/compat/opensolaris/include/stdio.h
+@@ -27,11 +27,11 @@
+  *
+  */
+ 
++#include_next <stdio.h>
++
+ #ifndef _COMPAT_OPENSOLARIS_STDIO_H_
+ #define _COMPAT_OPENSOLARIS_STDIO_H_
+ 
+-#include_next <stdio.h>
+-
+ #define ftello64	ftello
+ #define lseek64		lseek
+ #define fseeko64	fseeko
+--- a/cddl/compat/opensolaris/include/stdlib.h
++++ b/cddl/compat/opensolaris/include/stdlib.h
+@@ -27,11 +27,11 @@
+  *
+  */
+ 
++#include_next <stdlib.h>
++
+ #ifndef _COMPAT_OPENSOLARIS_STDLIB_H_
+ #define _COMPAT_OPENSOLARIS_STDLIB_H_
+ 
+-#include_next <stdlib.h>
+-
+ #define getexecname	getprogname
+ 
+ #endif
+--- a/cddl/compat/opensolaris/include/alloca.h
++++ b/cddl/compat/opensolaris/include/alloca.h
+@@ -27,6 +27,10 @@
+  *
+  */
+ 
++#ifdef __GLIBC__
++#include_next <alloca.h>
++#endif
++
+ #ifndef _COMPAT_OPENSOLARIS_ALLOCA_H_
+ #define _COMPAT_OPENSOLARIS_ALLOCA_H_
+ 
+--- a/sys/cddl/compat/opensolaris/sys/misc.h
++++ b/sys/cddl/compat/opensolaris/sys/misc.h
+@@ -31,7 +31,11 @@
+ 
+ #include <sys/limits.h>
+ 
++#ifdef UID_MAX
+ #define	MAXUID	UID_MAX
++#else
++#define MAXUID	UINT_MAX
++#endif
+ 
+ #define	SPEC_MAXOFFSET_T	OFF_MAX
+ 
+--- a/sys/cddl/compat/opensolaris/sys/vnode.h
++++ b/sys/cddl/compat/opensolaris/sys/vnode.h
+@@ -116,7 +116,11 @@
+ #define	va_blksize	va_blocksize
+ #define	va_seq		va_gen
+ 
++#ifndef OFF_MAX
++#define MAXOFFSET_T	__OFF_MAX
++#else
+ #define	MAXOFFSET_T	OFF_MAX
++#endif
+ #define	EXCL		0
+ 
+ #define	ACCESSED		(AT_ATIME)
+--- a/sys/cddl/compat/opensolaris/sys/stat.h
++++ b/sys/cddl/compat/opensolaris/sys/stat.h
+@@ -32,11 +32,17 @@
+ 
+ #include_next <sys/stat.h>
+ 
++#ifndef __GLIBC__
+ #define	stat64	stat
++#endif
+ 
++#ifdef OFF_MAX
+ #define	MAXOFFSET_T	OFF_MAX
++#else
++#define MAXOFFSET_T	__OFF_MAX
++#endif
+ 
+-#ifndef _KERNEL
++#if !defined(_KERNEL) && !defined(__GLIBC__)
+ #include <sys/disk.h>
+ 
+ static __inline int
+--- a/cddl/compat/opensolaris/include/mnttab.h
++++ b/cddl/compat/opensolaris/include/mnttab.h
+@@ -9,7 +9,7 @@
+ #include <stdio.h>
+ #include <paths.h>
+ 
+-#define	MNTTAB		_PATH_DEVZERO
++#define	MNTTAB		_PATH_MNTTAB
+ #define	MNT_LINE_MAX	1024
+ 
+ #define	MS_OVERLAY	0x0
+@@ -28,6 +28,8 @@
+ 
+ int getmntany(FILE *fd, struct mnttab *mgetp, struct mnttab *mrefp);
+ int getmntent(FILE *fp, struct mnttab *mp);
++
++#define hasmntopt solaris_hasmntopt
+ char *hasmntopt(struct mnttab *mnt, char *opt);
+ 
+ void statfs2mnttab(struct statfs *sfs, struct mnttab *mp);
+--- a/sys/cddl/compat/opensolaris/rpc/xdr.h
++++ b/sys/cddl/compat/opensolaris/rpc/xdr.h
+@@ -60,10 +60,16 @@
+ }
+ 
+ #undef XDR_CONTROL
++#ifdef __GLIBC__
++#define	XDR_CONTROL(xdrs, req, op)					\
++	(xdrmem_control((xdrs), (req), (op)))
++
++#else
+ #define	XDR_CONTROL(xdrs, req, op)					\
+ 	(((xdrs)->x_ops->x_control == NULL) ?				\
+ 	    xdrmem_control((xdrs), (req), (op)) :			\
+ 	    (*(xdrs)->x_ops->x_control)(xdrs, req, op))   
++#endif
+ 
+ #endif	/* !_KERNEL */
+ 
+--- a/cddl/compat/opensolaris/misc/fsshare.c
++++ b/cddl/compat/opensolaris/misc/fsshare.c
+@@ -34,7 +34,6 @@
+ #include <fcntl.h>
+ #include <fsshare.h>
+ #include <libutil.h>
+-#include <pathnames.h>	/* _PATH_MOUNTDPID */
+ #include <signal.h>
+ #include <stdio.h>
+ #include <string.h>
+@@ -47,6 +46,9 @@
+ static void
+ restart_mountd(void)
+ {
++	fprintf (stderr, "warning: mountd isn't supported in "
++		"Debian GNU/kFreeBSD yet\n");
++#if 0
+ 	struct pidfh *pfh;
+ 	pid_t mountdpid;
+ 
+@@ -62,6 +64,7 @@
+ 	}
+ 	/* We have mountd(8) PID in mountdpid varible. */
+ 	kill(mountdpid, SIGHUP);
++#endif
+ }
+ 
+ /*
+@@ -69,7 +72,7 @@
+  * mountpoint specified in the 'skip' argument.
+  */
+ static char *
+-getline(FILE *fd, const char *skip)
++xgetline(FILE *fd, const char *skip)
+ {
+ 	static char line[MAXLINESIZE];
+ 	size_t len, skiplen;
+@@ -200,7 +203,7 @@
+ 
+ 	/* Place big, fat warning at the begining of the file. */
+ 	fprintf(newfd, "%s", FILE_HEADER);
+-	while (oldfd != NULL && (line = getline(oldfd, mountpoint)) != NULL)
++	while (oldfd != NULL && (line = xgetline(oldfd, mountpoint)) != NULL)
+ 		fprintf(newfd, "%s\n", line);
+ 	if (oldfd != NULL && ferror(oldfd) != 0) {
+ 		error = ferror(oldfd);
+--- a/sys/cddl/compat/opensolaris/sys/dirent.h
++++ b/sys/cddl/compat/opensolaris/sys/dirent.h
+@@ -36,7 +36,10 @@
+ typedef	struct dirent	dirent64_t;
+ typedef ino_t		ino64_t;
+ 
++/* GNU libc has its own dirent64 declaration */
++#ifndef __GLIBC__
+ #define	dirent64	dirent
++#endif
+ 
+ #define	d_ino	d_fileno
+ 

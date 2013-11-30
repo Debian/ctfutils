@@ -1,0 +1,11 @@
+--- a/sys/cddl/contrib/opensolaris/uts/common/sys/sysmacros.h
++++ b/sys/cddl/contrib/opensolaris/uts/common/sys/sysmacros.h
+@@ -380,7 +380,7 @@
+  * High order bit is 31 (or 63 in _LP64 kernel).
+  */
+ static __inline int
+-highbit(ulong_t i)
++highbit(unsigned long i)
+ {
+ 	register int h = 1;
+ 

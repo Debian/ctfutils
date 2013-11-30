@@ -1,0 +1,4 @@
+cddl/usr.bin/ctfconvert/ctfconvert	usr/bin
+cddl/usr.bin/ctfdump/ctfdump		usr/bin
+cddl/usr.bin/ctfmerge/ctfmerge		usr/bin
+cddl/lib/libctf/libctf.so.*		usr/lib

@@ -1,0 +1,36 @@
+--- a/cddl/usr.bin/ctfconvert/Makefile
++++ b/cddl/usr.bin/ctfconvert/Makefile
+@@ -37,6 +37,8 @@
+ 		-I${OPENSOLARIS_SYS_DISTDIR}/uts/common
+ 
+ DPADD=		${LIBCTF} ${LIBDWARF} ${LIBELF} ${LIBZ} ${LIBPTHREAD}
+-LDADD=		-lctf -ldwarf -lelf -lz -lpthread
++LDADD=		-lctf -ldwarf-freebsd -lelf-freebsd -lz -lpthread
++
++LDADD+=		-L../../lib/libctf -lbsd
+ 
+ .include <bsd.prog.mk>
+--- a/cddl/usr.bin/ctfmerge/Makefile
++++ b/cddl/usr.bin/ctfmerge/Makefile
+@@ -34,6 +34,8 @@
+ 		-I${OPENSOLARIS_SYS_DISTDIR}/uts/common
+ 
+ DPADD=		${LIBCTF} ${LIBDWARF} ${LIBELF} ${LIBZ} ${LIBPTHREAD}
+-LDADD=		-lctf -ldwarf -lelf -lz -lpthread
++LDADD=		-lctf -ldwarf-freebsd -lelf-freebsd -lz -lpthread
++
++LDADD+=		-L../../lib/libctf -lbsd
+ 
+ .include <bsd.prog.mk>
+--- a/cddl/usr.bin/ctfdump/Makefile
++++ b/cddl/usr.bin/ctfdump/Makefile
+@@ -18,6 +18,8 @@
+ 		-I${OPENSOLARIS_SYS_DISTDIR}/uts/common
+ 
+ DPADD=		${LIBPTHREAD} ${LIBELF} ${LIBZ}
+-LDADD=		-lpthread -lelf -lz
++LDADD=		-lpthread -lelf-freebsd -lz
++
++LDADD+=		-lbsd
+ 
+ .include <bsd.prog.mk>
