@@ -1,13 +1,16 @@
 Source: ctfutils
 Section: devel
 Priority: extra
-Maintainer: Robert Millan <rmh@debian.org>
+Maintainer: GNU/kFreeBSD Maintainers <debian-bsd@lists.debian.org>
+Uploaders: Robert Millan <rmh@debian.org>
 Build-Depends: debhelper (>= 7.0.50~),
  freebsd-buildutils (>= 9.0-5~),
  libbsd-dev (>= 0.3.0),
  freebsd-glue (>= 0.1.8~),
  libdwarf-freebsd-dev,
  libelf-freebsd-dev,
+Vcs-Browser: http://anonscm.debian.org/viewvc/glibc-bsd/trunk/ctfutils/
+Vcs-Svn: svn://anonscm.debian.org/glibc-bsd/trunk/ctfutils/
 Standards-Version: 3.9.3
 
 Package: ctfutils
