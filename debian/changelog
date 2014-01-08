@@ -1,3 +1,10 @@
+ctfutils (9.2-3) unstable; urgency=low
+
+  * Bump freebsd-glue requirement to 0.2.16 to fix FTBFS on non-
+    kFreeBSD.
+
+ -- Robert Millan <rmh@debian.org>  Wed, 08 Jan 2014 15:17:11 +0100
+
 ctfutils (9.2-2) unstable; urgency=low
 
   * Set Maintainer to debian-bsd.
