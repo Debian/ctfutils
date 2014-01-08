@@ -6,7 +6,7 @@ Uploaders: Robert Millan <rmh@debian.org>
 Build-Depends: debhelper (>= 7.0.50~),
  freebsd-buildutils (>= 9.0-5~),
  libbsd-dev (>= 0.3.0),
- freebsd-glue (>= 0.1.8~),
+ freebsd-glue (>= 0.2.14~),
  libdwarf-freebsd-dev,
  libelf-freebsd-dev,
 Vcs-Browser: http://anonscm.debian.org/viewvc/glibc-bsd/trunk/ctfutils/
