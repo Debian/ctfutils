@@ -1,3 +1,9 @@
+ctfutils (9.2-4) unstable; urgency=low
+
+  * off64_t.diff: Fix off64_t typedef conflict.
+
+ -- Robert Millan <rmh@debian.org>  Wed, 08 Jan 2014 20:57:01 +0100
+
 ctfutils (9.2-3) unstable; urgency=low
 
   * Bump freebsd-glue requirement to 0.2.16 to fix FTBFS on non-

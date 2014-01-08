@@ -1,0 +1,12 @@
+--- a/sys/cddl/compat/opensolaris/sys/types.h
++++ b/sys/cddl/compat/opensolaris/sys/types.h
+@@ -52,7 +52,8 @@
+ typedef u_long		ulong_t;
+ typedef long long	longlong_t;  
+ typedef unsigned long long u_longlong_t;
+-typedef off_t		off64_t;
++typedef __off64_t	off64_t;
++#define __off64_t_defined
+ typedef id_t		taskid_t;
+ typedef id_t		projid_t;
+ typedef id_t		poolid_t;
