@@ -1,3 +1,10 @@
+ctfutils (9.2-5) unstable; urgency=low
+
+  * Add -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE to CFLAGS. Thanks
+    Aaron M. Ucko. (Closes: #734782)
+
+ -- Robert Millan <rmh@debian.org>  Fri, 10 Jan 2014 00:54:09 +0100
+
 ctfutils (9.2-4) unstable; urgency=low
 
   * off64_t.diff: Fix off64_t typedef conflict.

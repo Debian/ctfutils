@@ -5,7 +5,6 @@ compat_opensolaris.diff
 
 # Other patches that might or might not be mergeable
 ulong_t.diff
-off64_t.diff
 
 # Patches that are likely to be Debian-specific
 makefile.diff

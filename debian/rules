@@ -15,6 +15,12 @@ CFLAGS = -Wall -Wno-unknown-pragmas -g -pipe -fPIC -I. \
 	-Werror=implicit-function-declaration \
 	$(NULL)
 
+# Satisfy 64-bit off_t assumptions in the compat layer (see #734782)
+CFLAGS += -D_FILE_OFFSET_BITS=64
+
+# Enable fseeko / ftello prototypes, used in the compat layer
+CFLAGS += -D_LARGEFILE_SOURCE
+
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
 	CFLAGS += -O0
 else
