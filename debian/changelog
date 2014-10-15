@@ -1,3 +1,12 @@
+ctfutils (9.2-5.1) unstable; urgency=low
+  
+  * Non-maintainer upload.
+  [Sphinx Jiang]
+   * Fix mips64(el) build: __mips64 and __LP64__ instead of __mips64_n64
+     (Closes: #752059).
+
+ -- YunQiang Su <syq@debian.org>  Fri, 10 Oct 2014 13:24:07 +0800
+
 ctfutils (9.2-5) unstable; urgency=low
 
   * Add -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE to CFLAGS. Thanks

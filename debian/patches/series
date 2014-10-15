@@ -8,3 +8,4 @@ ulong_t.diff
 
 # Patches that are likely to be Debian-specific
 makefile.diff
+mips64.diff
