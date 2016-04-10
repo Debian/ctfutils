@@ -1,0 +1,20 @@
+Date: Sun, 10 Apr 2016 21:54:27 +0100
+From: Steven Chamberlain <steven@pyro.eu.org>
+Subject: skip encoding struct/union with >CTF_MAX_VLEN members
+
+Turn a "sou %s has too many values" error into a warning;
+skip encoding struct/unions too large.
+
+--- a/cddl/contrib/opensolaris/tools/ctf/cvt/ctf.c
++++ b/cddl/contrib/opensolaris/tools/ctf/cvt/ctf.c
+@@ -383,8 +383,9 @@
+ 			i++; /* count up struct or union members */
+ 
+ 		if (i > CTF_MAX_VLEN) {
+-			terminate("sou %s has too many members: %d > %d\n",
++			warning("sou %s has too many members: %d > %d\n",
+ 			    tdesc_name(tp), i, CTF_MAX_VLEN);
++			break;
+ 		}
+ 
+ 		if (tp->t_type == STRUCT)
