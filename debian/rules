@@ -80,7 +80,7 @@ get-orig-source:
 		cddl/usr.bin/ctfdump \
 		cddl/usr.bin/ctfmerge \
 	         ; do \
-	    svn export $(SVN)/$$i $(ORIG_DIR)/$$i || : ; \
+	    svn export $(SVN)/$$i $(ORIG_DIR)/$$i || exit ; \
 	done
 	# Clamp timestamps to be no newer than last changelog entry, see
 	# https://wiki.debian.org/ReproducibleBuilds/TimestampsInTarball
