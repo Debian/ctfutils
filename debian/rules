@@ -47,10 +47,11 @@ SVN		:= https://svn0.us-west.freebsd.org/base/release/$(version).0
 #SVN		:= https://svn0.us-west.freebsd.org/base/head
 
 SOURCE = ctfutils
-ORIGDIR = $(SOURCE)-$(tar_version)
-TARNAME = $(SOURCE)_$(tar_version).orig.tar.gz
+ORIG_DIR = $(SOURCE)-$(tar_version)
+ORIG_TAR = $(SOURCE)_$(tar_version).orig.tar.gz
 
 PATH := /usr/lib/freebsd:$(PATH)
+SOURCE_DATE_EPOCH ?= $(shell date -d "$$(dpkg-parsechangelog -SDate)" +%s)
 DESTDIR = $(CURDIR)/debian/tmp
 PMAKE = \
 	MAKEFLAGS=$(BSD_MAKEFLAGS) \
@@ -61,7 +62,7 @@ PMAKE = \
 export SHLIB_MAJOR = 0
 
 get-orig-source:
-	rm -rf $(ORIGDIR)
+	rm -rf $(ORIG_DIR)
 	for i in \
 		cddl/compat/opensolaris \
 		sys/cddl/compat/opensolaris \
@@ -78,10 +79,19 @@ get-orig-source:
 		cddl/usr.bin/ctfdump \
 		cddl/usr.bin/ctfmerge \
 	         ; do \
-	    svn export $(SVN)/$$i $(ORIGDIR)/$$i ; \
+	    svn export $(SVN)/$$i $(ORIG_DIR)/$$i || : ; \
 	done
-	tar --numeric-owner --owner 0 --group 0 -czf ../$(TARNAME) $(ORIGDIR)
-	rm -rf $(ORIGDIR)
+	# Clamp timestamps to be no newer than last changelog entry, see
+	# https://wiki.debian.org/ReproducibleBuilds/TimestampsInTarball
+	find $(ORIG_DIR) -newermt "@$(SOURCE_DATE_EPOCH)" -print0 \
+	 | xargs -0r touch --no-dereference --date="@$(SOURCE_DATE_EPOCH)"
+	# Create tarball with files sorted in a stable order, see
+	# https://wiki.debian.org/ReproducibleBuilds/FileOrderInTarballs
+	find $(ORIG_DIR) -print0 | LC_ALL=C sort -z \
+	 | tar --null --no-recursion --files-from - \
+	    --numeric-owner --owner 0 --group 0 \
+	    -cJf ../$(ORIG_TAR)
+	rm -rf $(ORIG_DIR)
 
 build: build-arch build-indep
 

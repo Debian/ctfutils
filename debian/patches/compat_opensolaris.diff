@@ -30,22 +30,6 @@
  #define ftello64	ftello
  #define lseek64		lseek
  #define fseeko64	fseeko
---- a/cddl/compat/opensolaris/include/stdlib.h
-+++ b/cddl/compat/opensolaris/include/stdlib.h
-@@ -27,11 +27,11 @@
-  *
-  */
- 
-+#include_next <stdlib.h>
-+
- #ifndef _COMPAT_OPENSOLARIS_STDLIB_H_
- #define _COMPAT_OPENSOLARIS_STDLIB_H_
- 
--#include_next <stdlib.h>
--
- #define getexecname	getprogname
- 
- #endif
 --- a/cddl/compat/opensolaris/include/alloca.h
 +++ b/cddl/compat/opensolaris/include/alloca.h
 @@ -27,6 +27,10 @@
