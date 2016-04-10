@@ -6,6 +6,8 @@ ctfutils (10.3~svn297264-1) UNRELEASED; urgency=medium
     - ulong_t.diff
   * Make get-orig-source tarball reproducible
   * Use XZ to compress orig source tarball
+  * Use new preferred hostname for upstream SVN with HTTPS
+    (svn.freebsd.org).
   * Now using Standards-Version 3.9.8 (no changes needed)
   * Turn a "sou %s has too many values" error into a warning;
     encode only the first CTF_MAX_VLEN members.
