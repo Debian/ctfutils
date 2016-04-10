@@ -1,10 +1,11 @@
 ctfutils (10.3~svn297264-1) UNRELEASED; urgency=medium
 
   * New upstream snapshot of 10.3-RELEASE
-  * Make get-orig-source tarball reproducible
   * Refresh patches:
     - compat_opensolaris.diff
     - ulong_t.diff
+  * Make get-orig-source tarball reproducible
+  * Use XZ to compress orig source tarball
   * Now using Standards-Version 3.9.8 (no changes needed)
   * Turn a "sou %s has too many values" error into a warning;
     encode only the first CTF_MAX_VLEN members.
