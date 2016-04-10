@@ -1,4 +1,4 @@
-ctfutils (10.3~svn297264-1) UNRELEASED; urgency=medium
+ctfutils (10.3~svn297264-1) experimental; urgency=medium
 
   * New upstream snapshot of 10.3-RELEASE
   * Refresh patches:
