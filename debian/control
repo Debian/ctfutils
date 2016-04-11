@@ -2,7 +2,8 @@ Source: ctfutils
 Section: devel
 Priority: extra
 Maintainer: GNU/kFreeBSD Maintainers <debian-bsd@lists.debian.org>
-Uploaders: Robert Millan <rmh@debian.org>
+Uploaders: Robert Millan <rmh@debian.org>,
+ Steven Chamberlain <steven@pyro.eu.org>,
 Build-Depends: debhelper (>= 7.0.50~),
  freebsd-buildutils (>= 9.0-5~),
  libbsd-dev (>= 0.3.0),

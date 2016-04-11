@@ -11,6 +11,7 @@ ctfutils (10.3~svn297264-1) experimental; urgency=medium
   * Now using Standards-Version 3.9.8 (no changes needed)
   * Turn a "sou %s has too many values" error into a warning;
     encode only the first CTF_MAX_VLEN members.
+  * Add myself to Uploaders
 
  -- Steven Chamberlain <steven@pyro.eu.org>  Sun, 10 Apr 2016 20:58:12 +0100
 
