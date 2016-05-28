@@ -1,3 +1,9 @@
+ctfutils (10.3~svn297264-2) unstable; urgency=medium
+
+  * Upload to unstable
+
+ -- Steven Chamberlain <steven@pyro.eu.org>  Sat, 28 May 2016 11:49:14 +0100
+
 ctfutils (10.3~svn297264-1) experimental; urgency=medium
 
   * New upstream snapshot of 10.3-RELEASE
