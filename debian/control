@@ -10,8 +10,8 @@ Build-Depends: debhelper (>= 7.0.50~),
  freebsd-glue (>= 0.2.16~),
  libdwarf-freebsd-dev,
  libelf-freebsd-dev,
-Vcs-Browser: http://anonscm.debian.org/viewvc/glibc-bsd/trunk/ctfutils/
-Vcs-Svn: svn://anonscm.debian.org/glibc-bsd/trunk/ctfutils/
+Vcs-Browser: https://salsa.debian.org/kfreebsd-team/ctfutils
+Vcs-Git: https://salsa.debian.org/kfreebsd-team/ctfutils.git
 Standards-Version: 3.9.8
 
 Package: ctfutils
